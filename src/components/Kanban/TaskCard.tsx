@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '../ui/
 import { TaskType } from '@/type/tasksType'
 import { useTaskStore } from '@/store/TaskStore'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Trash } from 'lucide-react'
 import { useActiveCard } from '@/store/ActiveCardStore'
 import { dateFormatter } from '@/lib/utils'
@@ -39,6 +40,13 @@ const TaskCard = ({ ...props }: props) => {
         <CardDescription>{props.task.description}</CardDescription>
       </CardHeader>
       <CardFooter className='flex-col items-start gap-4'>
+        {
+          props.task.priority && (
+            <Badge variant="outline" className='mr-2'>
+              Prioridade
+            </Badge>
+          )
+        }
         <p className={`text-[13px] font-medium font-sans ${dateColor}`}>{formattedDate}</p>
 
         <Button variant="destructive" className='flex items-center gap-2' onClick={() => removeTask(props.task.id)}>
