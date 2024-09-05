@@ -6,14 +6,22 @@ type TaskStore = {
   tasks: TaskType[]
   addTask: (item: TaskType) => void
   removeTask: (id: string) => void
-  updateTask: (id: string, newStatus: string) => void
+  updateTask: (id: string, newStatus: string, doneDate?: Date) => void
 }
 
 export const useTaskStore = create<TaskStore>((set) => ({
   tasks: tasks,
   addTask: (item) => set(state => ({ tasks: [...state.tasks, item] })),
   removeTask: (id) => set(state => ({ tasks: state.tasks.filter(task => task.id !== id) })),
-  updateTask: (id, newStatus) => set(state => ({
-    tasks: state.tasks.map( task => task.id === id ? {...task, status: newStatus} : task)
+  updateTask: (id, newStatus, doneDate) => set(state => ({
+    tasks: state.tasks.map(task =>
+      task.id === id
+        ? {
+          ...task,
+          status: newStatus,
+          doneDate: newStatus === 'done' ? doneDate : undefined
+        }
+        : task
+    )
   }))
 }))

@@ -6,4 +6,5 @@ export type TaskType = {
   deadline: Date
   description: string
   priority: boolean
+  doneDate?: Date
 }

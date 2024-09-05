@@ -25,17 +25,21 @@ const TaskCard = ({ ...props }: props) => {
   }
 
   const { text: formattedDate, color: dateColor } = dateFormatter(
-    new Date(props.task.deadline)
+    props.task.deadline
   );
+
+  const formattedDoneDate = props.task.doneDate && dateFormatter(props.task.doneDate)
+
+  console.log(dateColor)
 
   return (
     <Card
       draggable
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={'active:opacity-30'}
+      className={`active:opacity-30`}
     >
-      <CardHeader>
+      <CardHeader className={`${props.task.status === 'done' && 'line-through'}`}>
         <CardTitle>{props.task.title}</CardTitle>
         <CardDescription>{props.task.description}</CardDescription>
       </CardHeader>
@@ -47,10 +51,11 @@ const TaskCard = ({ ...props }: props) => {
             </Badge>
           )
         }
-        <p className={`text-[13px] font-medium font-sans ${dateColor}`}>{formattedDate}</p>
+        <p className={`text-[13px] no-underline font-medium font-sans ${dateColor}`}>{formattedDate}</p>
+        {props.task.doneDate && (<p className={`text-[13px] no-underline font-medium font-sans}`}>{formattedDoneDate?.text}</p>)}
 
-        <Button variant="destructive" className='flex items-center gap-2' onClick={() => removeTask(props.task.id)}>
-          <Trash size={18} />
+        <Button variant="destructive" onClick={() => removeTask(props.task.id)}>
+          <Trash className="mr-2 h-4 w-4" />
           Deletar
         </Button>
       </CardFooter>

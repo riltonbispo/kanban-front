@@ -32,7 +32,8 @@ export const tasks: TaskType[] = [
     title: 'Criar documentação da API',
     description: 'Elaborar a documentação da API, detalhando os endpoints, parâmetros e exemplos de uso.',
     deadline: new Date('2024-09-15'),
-    priority: true
+    priority: true,
+    doneDate: new Date("2024-02-09"),
   },
   {
     id: 'task-5',
