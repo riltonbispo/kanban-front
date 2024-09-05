@@ -16,13 +16,16 @@ type props = {
 const TaskColumn = ({ ...props }: props) => {
   const [tasks, updateTask] = useTaskStore(state => [state.tasks, state.updateTask])
   const activeCard = useActiveCard(state => state.activeCard)
-  const filteredTasks = tasks.filter(task => task.status === props.status)
+
+
+  const filteredTasks = tasks
+    .filter(task => task.status === props.status)
+    .sort((a, b) => (a.priority === b.priority ? 0 : a.priority ? -1 : 1))
 
   const onDrop = (status: string) => {
     if (activeCard === null || activeCard === undefined) return
     updateTask(activeCard.id, status)
   }
-
 
   return (
     <section className='flex-1 space-y-4'>
@@ -38,7 +41,6 @@ const TaskColumn = ({ ...props }: props) => {
             <TaskCard task={task} />
             <DropArea onDrop={() => onDrop(props.status)} />
           </React.Fragment>
-
         ))}
       </ScrollArea>
     </section>
