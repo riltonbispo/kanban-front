@@ -1,11 +1,15 @@
+import { NewTask } from '@/components/Kanban/NewTask';
 import TaskColumn from '@/components/Kanban/TaskColumn';
 import { Crosshair } from 'lucide-react';
 
 export default function Home() {
 
   return (
-    <main className="max-w-[1100px] mx-auto">
-      <div className='flex gap-6 mt-8'>
+    <main className="max-w-[1100px] mx-auto mt-8 space-y-4">
+      <div>
+        <NewTask />
+      </div>
+      <div className='flex gap-6'>
         <TaskColumn
           title='To Do'
           status='todo'
